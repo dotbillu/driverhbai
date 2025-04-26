@@ -799,3 +799,132 @@ function updateProgress(stepIndex) {
 
 // Initialize the UI when the page loads
 document.addEventListener('DOMContentLoaded', initializeUI);
+// Function to create navigation index at the top
+// Function to create navigation index at the top with box-style step links
+function createNavigationIndex() {
+    const indexContainer = document.createElement('div');
+    indexContainer.className = 'navigation-index';
+    indexContainer.id = 'nav-index';
+    
+    const indexTitle = document.createElement('h2');
+    indexTitle.textContent = 'Navigation Index';
+    indexContainer.appendChild(indexTitle);
+    
+    // Create flex container for step boxes
+    const stepBoxContainer = document.createElement('div');
+    stepBoxContainer.className = 'step-box-container';
+    
+    steps.forEach((step, stepIndex) => {
+        const stepBox = document.createElement('div');
+        stepBox.className = 'step-box';
+        
+        const stepLink = document.createElement('a');
+        stepLink.href = `#step-${stepIndex + 2}`;
+        stepLink.textContent = step.title;
+        stepLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(`step-${stepIndex + 2}`).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        
+        stepBox.appendChild(stepLink);
+        stepBoxContainer.appendChild(stepBox);
+    });
+    
+    indexContainer.appendChild(stepBoxContainer);
+    
+    // Add a horizontal rule to separate the index from content
+    const divider = document.createElement('hr');
+    indexContainer.appendChild(divider);
+    
+    return indexContainer;
+}
+
+// Update initializeUI function to include navigation index
+function initializeUI() {
+    const stepsContainer = document.getElementById('steps-container');
+    stepsContainer.innerHTML = '';
+    
+    // Add navigation index at the top
+    stepsContainer.appendChild(createNavigationIndex());
+    
+    steps.forEach((step, stepIndex) => {
+        const stepElement = document.createElement('div');
+        stepElement.className = 'step';
+        stepElement.id = `step-${stepIndex + 2}`; // Starts from Step 2
+        
+        // Create step header
+        const stepHeader = document.createElement('div');
+        stepHeader.className = 'step-header';
+        const stepTitle = document.createElement('h2');
+        stepTitle.className = 'step-title';
+        stepTitle.textContent = step.title;
+        
+        const stepProgress = document.createElement('div');
+        stepProgress.className = 'step-progress';
+        stepProgress.id = `progress-${stepIndex}`;
+        
+        stepHeader.appendChild(stepTitle);
+        stepHeader.appendChild(stepProgress);
+        stepElement.appendChild(stepHeader);
+        
+        // Get categories for this step
+        const stepCategories = categories[stepIndex] || [];
+        
+        // Process questions by category
+        if (stepCategories.length > 0) {
+            stepCategories.forEach(categoryName => {
+                // Create category heading
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                // Add unique ID for direct navigation
+                categoryDiv.id = `category-${stepIndex}-${categoryName.replace(/\s+/g, '-').toLowerCase()}`;
+                
+                const categoryTitle = document.createElement('h3');
+                categoryTitle.className = 'category-title';
+                categoryTitle.textContent = categoryName;
+                categoryDiv.appendChild(categoryTitle);
+                
+                // Get range for this category
+                const range = categoryRanges[stepIndex][categoryName];
+                const startIndex = range[0];
+                const endIndex = range[1];
+                
+                // Add questions for this category
+                for (let i = startIndex; i <= endIndex; i++) {
+                    const question = step.questions[i];
+                    if (!question) continue;
+                    
+                    const questionElement = createQuestionElement(stepIndex, i, question);
+                    categoryDiv.appendChild(questionElement);
+                }
+                
+                stepElement.appendChild(categoryDiv);
+            });
+        } else {
+            // No categories, just add all questions
+            step.questions.forEach((question, questionIndex) => {
+                const questionElement = createQuestionElement(stepIndex, questionIndex, question);
+                stepElement.appendChild(questionElement);
+            });
+        }
+        
+        
+        // Add "Back to Top" link
+        const topLink = document.createElement('a');
+        topLink.href = "#";
+        topLink.className = "top-link";
+        topLink.textContent = "Back to Top";
+        topLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        stepElement.appendChild(topLink);
+        stepsContainer.appendChild(stepElement);
+        
+        // Initialize progress
+        updateProgress(stepIndex);
+    });
+    
+}
