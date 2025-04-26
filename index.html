@@ -8,9 +8,9 @@
        body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    max-width: 900px;
+    max-width: 100%; /* Changed from 900px to 100% */
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 40px; /* Added horizontal padding */
     color: #333;
 }
 .step {
@@ -152,6 +152,44 @@ hr {
     margin: 15px 0;
     border: 0;
     border-top: 1px solid #eee;
+}
+
+/* Container for content to ensure proper scaling */
+#steps-container {
+    width: 100%;
+}
+
+/* Media query for different zoom levels */
+@media screen and (min-width: 1200px) {
+    body {
+        padding: 20px 60px; /* More padding on larger screens */
+    }
+    
+    .step-box-container {
+        justify-content: space-between;
+    }
+}
+
+/* Specifically for 125% zoom and similar */
+@media screen and (max-width: 1200px) {
+    body {
+        padding: 20px 30px;
+    }
+    
+    .step {
+        padding: 15px;
+    }
+}
+
+/* For mobile devices */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .step-box {
+        min-width: 140px;
+    }
 }
     </style>
 </head>
