@@ -14,13 +14,3 @@ Full credit goes to **Striver (Raj Vikramaditya)** for curating and structuring 
 
 > This repository is for **learning and educational purposes only**. If there is any issue regarding content attribution or if this violates any guidelines, feel free to open an issue or contact me, and I will take immediate action.
 
-## 💡 Notes
-
-- I may update solutions over time as I improve.
-- The folder structure follows the topic-wise breakdown of the Striver Sheet.
-- Some solutions may include personal insights or additional comments to aid understanding.
-
-## 🚀 Let's Connect
-
-- [Striver on YouTube](https://www.youtube.com/@takeUforward)
-- [My GitHub](https://github.com/dotbillu)
