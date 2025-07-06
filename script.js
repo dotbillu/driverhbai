@@ -31,7 +31,7 @@ function initializeProgressChart() {
             datasets: [{
                 data: [completed, remaining],
                 backgroundColor: [
-                    '#00b887', // Green for completed
+                    '#00b8a3', // LeetCode green for completed
                     '#374151'  // Gray for remaining
                 ],
                 borderWidth: 0,
@@ -242,8 +242,10 @@ function markAllStepQuestions(stepIndex) {
     
     // Update progress displays
     updateProgress(stepIndex);
+    updateAllCategoryProgress(stepIndex);
     updateOverallProgress();
     updateNavigationProgress();
+        updateAllCategoryProgress(stepIndex);
 }
 
 // Function to mark all questions in a category as done
@@ -282,8 +284,10 @@ function markAllCategoryQuestions(stepIndex, categoryName) {
     
     // Update progress displays
     updateProgress(stepIndex);
+    updateAllCategoryProgress(stepIndex);
     updateOverallProgress();
     updateNavigationProgress();
+        updateAllCategoryProgress(stepIndex);
 }
 
 // Function to reset all questions in a step
@@ -310,8 +314,10 @@ function resetAllStepQuestions(stepIndex) {
     
     // Update progress displays
     updateProgress(stepIndex);
+    updateAllCategoryProgress(stepIndex);
     updateOverallProgress();
     updateNavigationProgress();
+        updateAllCategoryProgress(stepIndex);
 }
 
 // Function to reset all questions in a category
@@ -348,40 +354,16 @@ function resetAllCategoryQuestions(stepIndex, categoryName) {
     
     // Update progress displays
     updateProgress(stepIndex);
+    updateAllCategoryProgress(stepIndex);
     updateOverallProgress();
     updateNavigationProgress();
+        updateAllCategoryProgress(stepIndex);
 }
 
-// Function to update navigation progress badges
+// Function to update navigation progress badges (removed)
 function updateNavigationProgress() {
-    steps.forEach((step, stepIndex) => {
-        const stepCategories = categories[stepIndex] || [];
-        
-        if (stepCategories.length > 0) {
-            stepCategories.forEach(categoryName => {
-                const range = categoryRanges[stepIndex][categoryName];
-                if (!range) return;
-                
-                const startIndex = range[0];
-                const endIndex = range[1];
-                let completedCount = 0;
-                let totalCount = endIndex - startIndex + 1;
-                
-                for (let i = startIndex; i <= endIndex; i++) {
-                    const checkboxId = `checkbox-${stepIndex}-${i}`;
-                    const isChecked = localStorage.getItem(checkboxId) === "true";
-                    if (isChecked) completedCount++;
-                }
-                
-                const badgeId = `nav-progress-${stepIndex}-${categoryName.replace(/\s+/g, "-").toLowerCase()}`;
-                const badge = document.getElementById(badgeId);
-                if (badge) {
-                    badge.textContent = `${completedCount}/${totalCount}`;
-                    badge.className = `nav-progress-badge ${completedCount === totalCount ? "completed" : completedCount > 0 ? "in-progress" : ""}`;
-                }
-            });
-        }
-    });
+    // Sidebar progress badges have been removed
+    return;
 }
 
 function initializeDefaultState() {
@@ -464,18 +446,7 @@ function renderSidebar() {
             stepCategories.forEach(categoryName => {
                 const submenuItem = document.createElement('a');
                 submenuItem.className = 'submenu-item';
-                
-                // Create category name and progress container
-                const categoryText = document.createElement("span");
-                categoryText.textContent = categoryName;
-                
-                const progressBadge = document.createElement("span");
-                progressBadge.className = "nav-progress-badge";
-                progressBadge.id = `nav-progress-${stepIndex}-${categoryName.replace(/\s+/g, "-").toLowerCase()}`;
-                progressBadge.textContent = "0/0";
-                
-                submenuItem.appendChild(categoryText);
-                submenuItem.appendChild(progressBadge);
+                submenuItem.textContent = categoryName;
                 
                 submenuItem.href = '#';
                 submenuItem.dataset.target = `category-${stepIndex}-${categoryName.replace(/\\s+/g, '-').toLowerCase()}`;
@@ -635,6 +606,14 @@ function renderContent() {
                 // Create right side (buttons)
                 const categoryRight = document.createElement('div');
                 categoryRight.className = 'category-right';
+
+                // Add category progress tracker
+                const categoryProgress = document.createElement("div");
+                categoryProgress.className = "category-progress";
+                categoryProgress.id = `category-progress-${stepIndex}-${categoryName.replace(/\s+/g, "-").toLowerCase()}`;
+                categoryProgress.textContent = "0/0";
+                
+                categoryRight.appendChild(categoryProgress);
                 categoryRight.appendChild(categoryResetBtn);
                 categoryRight.appendChild(categoryMarkAllBtn);
                 
@@ -681,6 +660,7 @@ function renderContent() {
         stepElement.appendChild(stepContent);
         container.appendChild(stepElement);
         updateProgress(stepIndex);
+    updateAllCategoryProgress(stepIndex);
     });
 }
 
@@ -700,37 +680,83 @@ function createQuestionElement(stepIndex, questionIndex, question) {
         localStorage.setItem(`checkbox-${stepIndex}-${questionIndex}`, this.checked);
         updateQuestionDisplay(this, questionElement);
         updateProgress(stepIndex);
+    updateAllCategoryProgress(stepIndex);
         updateOverallProgress();
         updateNavigationProgress();
+        updateAllCategoryProgress(stepIndex);
     });
 
     const label = document.createElement('label');
     label.htmlFor = `checkbox-${stepIndex}-${questionIndex}`;
     
-    const link = document.createElement('a');
-    link.href = question.url;
-    link.target = '_blank';
-    link.textContent = question.text;
+    const questionText = document.createElement('span');
+    questionText.className = 'question-text';
+    questionText.textContent = question.text;
     
-    label.appendChild(link);
+    label.appendChild(questionText);
+    
+    // Create solve button
+    const solveButton = document.createElement('a');
+    solveButton.href = question.url;
+    solveButton.target = '_blank';
+    solveButton.className = 'solve-btn';
+    solveButton.innerHTML = '<span class="solve-text">Solve</span>';
+    
     questionElement.appendChild(checkbox);
     questionElement.appendChild(label);
-    
-    // Apply styling for completed items on load
-    if (isChecked) {
-        link.classList.add('completed');
-    }
+    questionElement.appendChild(solveButton);
     
     return questionElement;
 }
 
 function updateQuestionDisplay(checkbox, questionElement) {
-    const link = questionElement.querySelector('a');
+    const questionText = questionElement.querySelector('.question-text');
     if (checkbox.checked) {
-        link.classList.add('completed');
+        questionText.classList.add('completed');
     } else {
-        link.classList.remove('completed');
+        questionText.classList.remove('completed');
     }
+}
+
+// Function to update category progress
+function updateCategoryProgress(stepIndex, categoryName) {
+    const range = categoryRanges[stepIndex][categoryName];
+    if (!range) return;
+    
+    const startIndex = range[0];
+    const endIndex = range[1];
+    let completedCount = 0;
+    const totalCount = endIndex - startIndex + 1;
+    
+    for (let i = startIndex; i <= endIndex; i++) {
+        const checkboxId = `checkbox-${stepIndex}-${i}`;
+        const isChecked = localStorage.getItem(checkboxId) === "true";
+        if (isChecked) completedCount++;
+    }
+    
+    const progressElement = document.getElementById(`category-progress-${stepIndex}-${categoryName.replace(/\s+/g, "-").toLowerCase()}`);
+    if (progressElement) {
+        progressElement.textContent = `${completedCount}/${totalCount}`;
+        
+        const completionPercentage = (completedCount / totalCount) * 100;
+        if (completionPercentage === 100) {
+            progressElement.className = "category-progress completed";
+        } else if (completionPercentage > 50) {
+            progressElement.className = "category-progress good-progress";
+        } else if (completionPercentage > 0) {
+            progressElement.className = "category-progress started";
+        } else {
+            progressElement.className = "category-progress";
+        }
+    }
+}
+
+// Function to update all category progress for a step
+function updateAllCategoryProgress(stepIndex) {
+    const stepCategories = categories[stepIndex] || [];
+    stepCategories.forEach(categoryName => {
+        updateCategoryProgress(stepIndex, categoryName);
+    });
 }
 
 function updateProgress(stepIndex) {
