@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver A2Z DSA Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero bg-[#0f172a] text-white py-20 px-6 text-center">
+        <div class="hero-content">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                Driver A2Z DSA Sheet 🚀
+            </h1>
+            
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed">
+                Built on top of the original A2Z DSA Sheet — just more streamlined.
+                <br><br>
+                The layout is cleaner, navigation is smoother, and <span class="text-green-400 font-semibold">broken GFG links have been fixed</span>. 
+                <span class="text-blue-400 font-semibold">LeetCode versions are included</span> wherever possible, so you can focus on solving instead of searching.
+                <br><br>
+                Same structured roadmap, now with a better experience.
+            </p>
+            
+            <!-- Centralized Progress Chart -->
+            <div class="progress-section">
+                <h3 class="progress-title">Your Progress</h3>
+                <div class="progress-container">
+                    <!-- Chart with center text -->
+                    <div class="chart-wrapper">
+                        <canvas id="progressChart" width="250" height="250"></canvas>
+                        <div class="chart-center-text">
+                            <div class="center-solved" id="centerSolved">0</div>
+                            <div class="center-total">out of <span id="centerTotal">0</span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Detailed stats on the right -->
+                    <div class="detailed-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">✅</span>
+                            <span class="stat-text">Completed: <strong id="detailCompleted">0</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏳</span>
+                            <span class="stat-text">Remaining: <strong id="detailRemaining">0</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">📊</span>
+                            <span class="stat-text">Progress: <strong id="detailPercentage">0%</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🎯</span>
+                            <span class="stat-text">Total Questions: <strong id="detailTotal">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1 class="sidebar-title">Driver A2Z</h1>
+            <button class="sidebar-hide" id="sidebarHide" aria-label="Hide sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search topics..." aria-label="Search topics">
+            <div class="search-icon">🔍</div>
+        </div>
+        
+        <!-- Navigation Links -->
+        <div class="nav-links" id="navLinks">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </nav>
+
+    <!-- Sidebar Toggle Button (for when sidebar is hidden) -->
+    <button class="sidebar-show" id="sidebarShow" aria-label="Show sidebar">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="content-container" id="steps-container">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <script src="main.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>

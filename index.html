@@ -3,232 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2Z DSA SHEET</title>
-    <style>
-       body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px 40px;
-    color: #333;
-}
-.step {
-    margin-bottom: 30px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-.step-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
-}
-.step-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
-    color: #2c3e50;
-}
-.step-progress {
-    color: #666;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 5px 10px;
-    background-color: #f5f7fa;
-    border-radius: 12px;
-    border: 1px solid #e5e9f2;
-}
-.category {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-.category-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dashed #ccc;
-    color: #3498db;
-}
-.question {
-    display: flex;
-    align-items: center;
-    padding: 8px 0;
-    transition: background-color 0.2s;
-    border-radius: 4px;
-}
-.question:hover {
-    background-color: #f9f9f9;
-}
-.question input[type="checkbox"] {
-    margin-right: 10px;
-    cursor: pointer;
-    width: 18px;
-    height: 18px;
-}
-.question a {
-    color: #0066cc;
-    text-decoration: none;
-}
-.question a:hover {
-    text-decoration: underline;
-}
-.top-link {
-    display: inline-block;
-    margin-top: 20px;
-    color: #0066cc;
-    text-decoration: none;
-    font-size: 14px;
-    padding: 5px 10px;
-    background-color: #f5f7fa;
-    border-radius: 4px;
-    border: 1px solid #e5e9f2;
-}
-.top-link:hover {
-    background-color: #e5e9f2;
-}
-.completed {
-    text-decoration: line-through;
-    color: #7f8c8d;
-}
-h1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 30px;
-}
-
-/* Improved Navigation Index Box Style */
-.navigation-index {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.navigation-index h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 22px;
-    color: #2c3e50;
-    text-align: center;
-    position: relative;
-    display: inline-block;
-}
-
-.navigation-index h2:after {
-    content: "";
-    position: absolute;
-    width: 60%;
-    height: 3px;
-    background-color: #3498db;
-    bottom: -8px;
-    left: 20%;
-    border-radius: 2px;
-}
-
-.step-box-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    margin: 0 auto;
-    max-width: 1200px;
-}
-
-.step-box {
-    background-color: #fff;
-    border-radius: 6px;
-    padding: 12px 15px;
-    min-width: 170px;
-    text-align: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    border: 1px solid #e5e9f2;
-    transform: translateY(0);
-}
-
-.step-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    border-color: #3498db;
-}
-
-.step-box a {
-    text-decoration: none;
-    color: #2980b9;
-    font-weight: 500;
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 5px 0;
-    transition: color 0.3s ease;
-}
-
-.step-box:hover a {
-    color: #1a5889;
-}
-
-hr {
-    margin: 20px 0;
-    border: 0;
-    border-top: 1px solid #eee;
-}
-
-/* Container for content to ensure proper scaling */
-#steps-container {
-    width: 100%;
-}
-
-/* Media query for different zoom levels */
-@media screen and (min-width: 1200px) {
-    body {
-        padding: 20px 60px;
-    }
-    
-    .step-box-container {
-        justify-content: center;
-    }
-}
-
-/* Specifically for 125% zoom and similar */
-@media screen and (max-width: 1200px) {
-    body {
-        padding: 20px 30px;
-    }
-    
-    .step {
-        padding: 15px;
-    }
-}
-
-/* For mobile devices */
-@media screen and (max-width: 768px) {
-    body {
-        padding: 15px;
-    }
-    
-    .step-box {
-        min-width: 150px;
-    }
-    
-    .navigation-index {
-        padding: 15px;
-    }
-}
-    </style>
+    <title>Driver A2Z DSA Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>A2Z DSA SHEET</h1>
-    <div id="steps-container"></div>
-    <script src="main.js"></script>
+    <!-- Hero Section -->
+    <section class="hero bg-[#0f172a] text-white py-16 px-6">
+        <div class="hero-container">
+            <!-- Left Side: Hero Content -->
+            <div class="hero-left">
+                <h1 class="hero-title">
+                    Driver A2Z DSA Sheet
+                </h1>
+                
+                <p class="hero-description">
+                    A comprehensive Data Structures and Algorithms learning path designed for systematic skill development.
+                    <br><br>
+                    This curated collection features <span class="highlight">carefully selected problems</span> with 
+                    <span class="highlight">verified solutions</span> and direct links to both GeeksforGeeks and LeetCode platforms.
+                    <br><br>
+                    Master algorithms step by step with our structured approach to competitive programming excellence.
+                </p>
+            </div>
+            
+            <!-- Right Side: Progress Section -->
+            <div class="hero-right">
+                <div class="progress-section">
+                    <h3 class="progress-title">Your Progress</h3>
+                    <div class="progress-container">
+                        <!-- Chart with center text -->
+                        <div class="chart-wrapper">
+                            <canvas id="progressChart" width="150" height="150"></canvas>
+                            <div class="chart-center-text">
+                                <div class="center-solved" id="centerSolved">0</div>
+                                <div class="center-total">out of <span id="centerTotal">0</span></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Enhanced detailed stats -->
+                        <div class="detailed-stats">
+                            <div class="difficulty-stats">
+                                <div class="difficulty-stat easy">
+                                    <div class="difficulty-header">
+                                        <span class="difficulty-icon">🟢</span>
+                                        <span class="difficulty-label">Easy</span>
+                                    </div>
+                                    <div class="difficulty-progress">
+                                        <span id="easyCompleted" class="completed-count">0</span>
+                                        <span class="separator">/</span>
+                                        <span id="easyTotal" class="total-count">0</span>
+                                    </div>
+                                    <div class="difficulty-bar">
+                                        <div id="easyProgressBar" class="progress-fill-easy"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="difficulty-stat medium">
+                                    <div class="difficulty-header">
+                                        <span class="difficulty-icon">🟡</span>
+                                        <span class="difficulty-label">Medium</span>
+                                    </div>
+                                    <div class="difficulty-progress">
+                                        <span id="mediumCompleted" class="completed-count">0</span>
+                                        <span class="separator">/</span>
+                                        <span id="mediumTotal" class="total-count">0</span>
+                                    </div>
+                                    <div class="difficulty-bar">
+                                        <div id="mediumProgressBar" class="progress-fill-medium"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="difficulty-stat hard">
+                                    <div class="difficulty-header">
+                                        <span class="difficulty-icon">🔴</span>
+                                        <span class="difficulty-label">Hard</span>
+                                    </div>
+                                    <div class="difficulty-progress">
+                                        <span id="hardCompleted" class="completed-count">0</span>
+                                        <span class="separator">/</span>
+                                        <span id="hardTotal" class="total-count">0</span>
+                                    </div>
+                                    <div class="difficulty-bar">
+                                        <div id="hardProgressBar" class="progress-fill-hard"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                    <div id="hardProgressBar" class="progress-fill-hard"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="sidebar-hide" id="sidebarHide" aria-label="Hide sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search topics..." aria-label="Search topics">
+            <div class="search-icon">🔍</div>
+        </div>
+        
+        <!-- Navigation Links -->
+        <div class="nav-links" id="navLinks">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </nav>
+
+    <!-- Sidebar Toggle Button (for when sidebar is hidden) -->
+    <button class="sidebar-show" id="sidebarShow" aria-label="Show sidebar">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="content-container" id="steps-container">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <script src="main.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
