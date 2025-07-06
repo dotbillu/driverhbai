@@ -56,11 +56,11 @@ body {
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, var(--leetcode-dark) 0%, var(--bg-primary) 50%, var(--bg-secondary) 100%);
-    min-height: 50vh;
+    min-height: 15vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
+    padding: 1rem;
     position: relative;
     overflow: hidden;
     transition: var(--transition);
